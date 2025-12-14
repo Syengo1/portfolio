@@ -13,11 +13,8 @@ export function SkillsSection() {
   return (
     <section className="relative w-full py-24 px-4 md:px-12 flex flex-col items-center justify-center overflow-hidden">
       
-      {/* 1. BACKGROUND (Theme Aware) */}
-      <div className="absolute inset-0 bg-background transition-colors duration-500 -z-20" />
-      
-      {/* 2. GRID TEXTURE (Subtle) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.1)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
+      {/* 1. BACKGROUND (Clean - No Grids) */}
+      <div className="absolute inset-0 bg-transparent transition-colors duration-500 -z-20" />
 
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center z-10">
         
@@ -65,8 +62,7 @@ export function SkillsSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.15 }}
-                // CARD STYLING: Adapts to theme variables (card / card-foreground)
-                className="bg-card border border-border p-6 rounded-xl hover:border-primary/50 transition-all duration-300 shadow-sm group"
+                className="bg-card/50 backdrop-blur-sm border border-border/50 p-6 rounded-xl hover:border-primary/50 transition-all duration-300 shadow-sm group"
               >
                 <h4 className="font-bold text-lg mb-3 flex items-center gap-2 text-card-foreground">
                   <span className={`w-2 h-2 rounded-full ${
@@ -79,7 +75,7 @@ export function SkillsSection() {
                   {group.items.map((skill) => (
                     <span 
                       key={skill}
-                      className="px-3 py-1 text-xs font-mono font-medium rounded-full bg-muted text-muted-foreground border border-transparent group-hover:border-primary/30 group-hover:text-primary transition-colors duration-300"
+                      className="px-3 py-1 text-xs font-mono font-medium rounded-full bg-muted/80 text-muted-foreground border border-transparent group-hover:border-primary/30 group-hover:text-primary transition-colors duration-300"
                     >
                       {skill}
                     </span>

@@ -152,7 +152,7 @@ export function WantedPoster() {
                animate={{ opacity: isActive ? 0 : 1 }}
                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] font-mono text-white bg-black/50 px-2 py-1 rounded md:hidden pointer-events-none"
              >
-               Hold
+               Hold&tilt
              </motion.div>
 
              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[90%] flex justify-center z-20">

@@ -69,7 +69,7 @@ export function ContactSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               
               {/* 1. EMAIL BUTTON (Primary Action) */}
-              <a href="mailto:antonysyengo1@gmail.com" className="group relative px-6 py-4 bg-foreground text-background font-bold rounded-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center gap-3">
+              <a href="mailto:syengowork@gmail.com" className="group relative px-6 py-4 bg-foreground text-background font-bold rounded-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center gap-3">
                 <Mail size={20} />
                 <span>Send Dispatch</span>
                 {/* Haki Glow on Hover */}
