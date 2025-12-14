@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { EasterEggManager } from "@/components/EasterEggManager";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 // 1. FONT SETUP
 const inter = Inter({ 
@@ -57,6 +58,8 @@ export default function RootLayout({
 
           {/* --- MAIN CONTENT STAGE --- */}
           {children}
+
+          <WhatsAppButton />
 
         </ThemeProvider>
       </body>

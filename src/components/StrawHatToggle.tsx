@@ -5,7 +5,8 @@ import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function StrawHatToggle() {
-  const { theme, setTheme } = useTheme();
+  // FIX 1: Extract 'resolvedTheme' to know the real active look
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [isAnimating, setIsAnimating] = React.useState(false);
 
@@ -13,12 +14,14 @@ export function StrawHatToggle() {
 
   if (!mounted) return null;
 
-  const isDark = theme === "dark";
+  // FIX 2: Check 'resolvedTheme' instead of 'theme'
+  // This ensures the toggle works instantly even if the setting is "system"
+  const isDark = resolvedTheme === "dark";
 
   const handleToggle = () => {
     setIsAnimating(true);
     setTheme(isDark ? "light" : "dark");
-    // Reset the "DON!!" animation after it plays
+    // Reset the "GUMO!!" animation after it plays
     setTimeout(() => setIsAnimating(false), 600);
   };
 
@@ -53,7 +56,7 @@ export function StrawHatToggle() {
       >
         <div className="w-14 h-14 relative">
           
-          {/* THE MANGA EFFECT: "DON!!" Text Popup */}
+          {/* THE MANGA EFFECT: "GUMO!!" Text Popup */}
           <AnimatePresence>
             {isAnimating && (
               <motion.div

@@ -1,70 +1,23 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { WantedPoster } from "./WantedPoster";
 import { Anchor, Download, Database, Code } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-// --- HAKI TEXT COMPONENT ---
-const HakiText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
-  return (
-    <motion.span
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.8, ease: "backOut" }}
-      className="inline-block relative cursor-default group"
-    >
-      <span className="relative z-10">{text}</span>
-      <span className="absolute inset-0 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 text-primary select-none pointer-events-none">
-        {text}
-      </span>
-    </motion.span>
-  );
-};
+// --- TYPES ---
+interface HakiTextProps {
+  text: string;
+  delay?: number;
+}
 
-// --- MAGNETIC BUTTON ---
-const MagneticButton = ({ children, onClick, variant = "primary" }: any) => {
-  const ref = useRef<HTMLButtonElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+interface MagneticButtonProps extends React.ComponentProps<typeof motion.button> {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+  onClick?: () => void;
+}
 
-  const handleMouse = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    x.set((e.clientX - centerX) * 0.3);
-    y.set((e.clientY - centerY) * 0.3);
-  };
-
-  const reset = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  const baseStyles = "relative px-8 py-4 rounded-full font-bold flex items-center gap-2 transition-all duration-300 overflow-hidden group cursor-pointer z-50";
-  const variants = {
-    primary: "bg-foreground text-background hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]",
-    secondary: "border-2 border-border text-foreground hover:bg-muted"
-  };
-
-  return (
-    <motion.button
-      ref={ref}
-      style={{ x, y }}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      onClick={onClick}
-      className={`${baseStyles} ${variant === "primary" ? variants.primary : variants.secondary}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      {children}
-    </motion.button>
-  );
-};
-
-// --- TYPES FOR PARTICLES ---
 type Particle = {
   id: number;
   initialX: number;
@@ -75,10 +28,77 @@ type Particle = {
   left: string;
 };
 
+// --- HAKI TEXT COMPONENT ---
+const HakiText = ({ text, delay = 0 }: HakiTextProps) => {
+  return (
+    <motion.span
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.8, ease: "backOut" }}
+      className="inline-block relative cursor-default group select-none"
+    >
+      <span className="relative z-10">{text}</span>
+      <span className="absolute inset-0 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 text-primary pointer-events-none">
+        {text}
+      </span>
+    </motion.span>
+  );
+};
+
+// --- MAGNETIC BUTTON ---
+const MagneticButton = ({ children, onClick, variant = "primary", ...props }: MagneticButtonProps) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  
+  // Use springs for smoother magnetic effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    // Calculate distance from center
+    x.set((e.clientX - centerX) * 0.3);
+    y.set((e.clientY - centerY) * 0.3);
+  };
+
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const baseStyles = "relative px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 transition-all duration-300 overflow-hidden group cursor-pointer z-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary";
+  const variants = {
+    primary: "bg-foreground text-background hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]",
+    secondary: "border-2 border-border text-foreground hover:bg-muted"
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      style={{ x: springX, y: springY }}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      onClick={onClick}
+      className={`${baseStyles} ${variant === "primary" ? variants.primary : variants.secondary}`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      {...props}
+    >
+      {children}
+    </motion.button>
+  );
+};
+
 export function Hero() {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
 
+  // Initialize particles on mount
   useEffect(() => {
     const generatedParticles = [...Array(6)].map((_, i) => ({
       id: i,
@@ -97,26 +117,34 @@ export function Hero() {
     offset: ["start start", "end start"] 
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.8], [1, 1, 0]);
-
-  const scrollToProjects = () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  // UX IMPROVEMENT: Parallax & Opacity
+  // 1. Slow down the parallax (0% -> 10%) so elements don't "run away" from the user.
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/resume.pdf";
-    link.download = "Antony_Syengo_CV.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // 2. The "Cliff Fade": Stay fully visible (1) until 75% scroll, then rapidly fade to 0 by 95%.
+  // This ensures buttons are clickable for the entire hero duration but vanish instantly before overlapping the next section.
+  const opacity = useTransform(scrollYProgress, [0, 0.75, 0.95], [1, 1, 0]);
+
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById("projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  
+  const handleViewCv = () => {
+    router.push("/cv");
   };
 
   return (
-    // UPDATED: 'min-h-[110vh]' for height, 'pb-40' for extra bottom spacing
-    <section ref={containerRef} className="min-h-[110vh] w-full flex flex-col md:flex-row items-center justify-center px-4 md:px-12 pt-40 pb-40 relative overflow-visible perspective-1000">
+    <section 
+      ref={containerRef} 
+      // Adjusted padding: pt-24 provides breathing room for navbar, pb-12 ensures poster fits
+      className="min-h-screen w-full flex flex-col md:flex-row items-center justify-center px-6 md:px-12 pt-24 pb-12 relative overflow-hidden perspective-1000"
+    >
       
       {/* BACKGROUND EFFECTS */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)] opacity-[0.03] blur-3xl" />
         
         {particles.map((p) => (
@@ -125,7 +153,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 100, x: p.initialX }}
             animate={{ 
               opacity: [0, 0.3, 0], 
-              y: -100, 
+              y: -150, 
               x: p.moveX,
               rotate: p.rotation 
             }}
@@ -138,10 +166,11 @@ export function Hero() {
         ))}
       </div>
 
-      {/* LEFT SIDE: TEXT (Updated Z-Index to 50 to ensure clickability) */}
+      {/* LEFT SIDE: TEXT */}
       <motion.div 
         style={{ y, opacity }} 
-        className="flex-1 w-full max-w-2xl text-center md:text-left z-50 mb-16 md:mb-0 relative"
+        // Z-Index: 10 ensures this layer slides UNDER the next section (which is z-20)
+        className="flex-1 w-full max-w-2xl text-center md:text-left z-10 mb-8 md:mb-0 relative"
       >
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -153,7 +182,7 @@ export function Hero() {
           System Status: Online
         </motion.div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground leading-[0.9] mb-8">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground leading-[0.9] mb-8">
           <div className="overflow-hidden">
             <HakiText text="Building" delay={0.1} /> <HakiText text="Logic," delay={0.2} />
           </div>
@@ -181,13 +210,13 @@ export function Hero() {
           transition={{ delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
         >
-          <MagneticButton onClick={scrollToProjects} variant="primary">
+          <MagneticButton onClick={scrollToProjects} variant="primary" aria-label="Scroll to Projects Section">
             <span>Set Sail (Projects)</span>
             <Anchor size={18} className="group-hover:rotate-45 transition-transform" />
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
           </MagneticButton>
           
-          <MagneticButton onClick={handleDownload} variant="secondary">
+          <MagneticButton onClick={handleViewCv} variant="secondary" aria-label="Navigate to CV Page">
             <span>View Bounty (CV)</span>
             <Download size={18} className="group-hover:translate-y-1 transition-transform" />
           </MagneticButton>
@@ -195,9 +224,10 @@ export function Hero() {
       </motion.div>
 
       {/* RIGHT SIDE: POSTER */}
-      <div className="flex-1 w-full flex items-center justify-center z-20">
-        <div className="relative">
-          <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full scale-75 animate-pulse" />
+      <div className="flex-1 w-full flex items-center justify-center z-20 h-auto md:h-[600px]">
+        <div className="relative w-full max-w-[320px] md:max-w-[400px] flex justify-center">
+          {/* Backlight Effect */}
+          <div className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full scale-75 animate-pulse" />
           <WantedPoster />
         </div>
       </div>
