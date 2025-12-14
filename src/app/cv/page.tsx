@@ -244,46 +244,12 @@ export default function CVPage() {
             </section>
           </div> 
 
-          {/* --- REFERENCES (PLACEHOLDERS) --- */}
-         {/* <section className="mt-8 pt-8 border-t border-dashed border-slate-200 dark:border-white/10 print:border-slate-300 print:break-inside-avoid">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4 text-center">
-              References
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 print:grid-cols-2 gap-8">
-               REFERENCE 1 
-              <div className="text-sm text-slate-700 dark:text-slate-300 text-center">
-                <p className="font-bold text-slate-900 dark:text-white print:text-black">
-                  Joseph Muya Mani
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Founder, Tuwakuze Africa
-                </p>
-                <p className="font-mono text-xs mt-1 text-blue-600 dark:text-blue-400 print:text-black">
-                  Phone:
-                </p>
-                <p className="font-mono text-xs text-slate-500">
-                  Email:
-                </p>
-              </div>
-
-               REFERENCE 2 
-              <div className="text-sm text-slate-700 dark:text-slate-300 text-center">
-                <p className="font-bold text-slate-900 dark:text-white print:text-black">
-                  Samuel Adhola
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Head of Department, JKUAT, Karen Campus
-                </p>
-                <p className="font-mono text-xs mt-1 text-blue-600 dark:text-blue-400 print:text-black">
-                  Phone: 
-                </p>
-                <p className="font-mono text-xs text-slate-500">
-                  [Email: name@example.com]
-                </p> *
-              </div>
-            </div>
-          </section> */}
-          
+          {/* --- REFERENCES --- */}
+          <section className="mt-8 pt-8 border-t border-dashed border-slate-200 dark:border-white/10 print:border-slate-300">
+            <p className="text-center text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+              Excellent references available upon request
+            </p>
+          </section>
 
         </div>
       </div>
