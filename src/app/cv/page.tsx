@@ -156,7 +156,7 @@ export default function CVPage() {
               <div className="print:break-inside-avoid">
                 <div className="flex justify-between items-baseline mb-1">
                   <h3 className="text-base font-bold text-foreground print:text-black">
-                    Project Nostro <span className="text-xs font-normal text-muted-foreground ml-1 print:text-slate-600">| Full Stack Restaurant Management Web App</span>
+                    Project Notsro <span className="text-xs font-normal text-muted-foreground ml-1 print:text-slate-600">| Full Stack Restaurant Management Web App</span>
                   </h3>
                   <span className="text-xs font-mono text-blue-600 dark:text-blue-400 print:text-black">2025</span>
                 </div>

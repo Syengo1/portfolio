@@ -5,11 +5,11 @@ import { ProjectCard, ProjectType } from "./ProjectCard";
 // ... (Your PROJECTS array remains here) ...
 const PROJECTS: ProjectType[] = [
   {
-    title: "Nostro",
-    description: "Disclaimer: Not owned by Nostro!!!, Nostro is a modern website for a Nairobi-based premium fast-food brand, likely focused on pizza and casual dining. It emphasizes clean design and brand identity, serving as a simple promotional or landing page rather than a fully featured restaurant website.",
-    image: "/nostro.png",
+    title: "Notsro",
+    description: "Disclaimer: Not owned by Notsro!!!, Notsro is a modern website for a Nairobi-based premium fast-food brand, likely focused on pizza and casual dining. It emphasizes clean design and brand identity, serving as a simple promotional or landing page rather than a fully featured restaurant website.",
+    image: "/notsro.png",
     techStack: ["React", "TailwindCss", "Vite", "Framer-Motion", "Supabase"],
-    liveLink: "https://nostro-one.vercel.app/",
+    liveLink: "https://notsro-one.vercel.app/",
     //repoLink: "https://github.com", 
     isDeployed: true,
     difficulty: "Supernova",
