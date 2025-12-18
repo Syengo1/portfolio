@@ -6,11 +6,9 @@ import { StrawHatToggle } from "@/components/StrawHatToggle";
 
 export default function CVPage() {
   return (
-    // LAYER 60: Covers the standard Navbar (z-50) entirely
-    // FIX: Replaced hardcoded colors with 'bg-background' and 'text-foreground' to sync with globals.css
     <div className="fixed inset-0 z-[60] w-full h-full overflow-y-auto bg-background text-foreground transition-colors duration-500 print:static print:overflow-visible print:bg-white print:text-black">
       
-      {/* 1. CONTROLS (Floating Toolbar) - Hidden when printing */}
+      {/* 1. CONTROLS (Floating Toolbar) */}
       <div className="fixed top-6 right-6 z-[70] flex flex-col items-center gap-4 print:hidden">
         {/* Theme Toggle */}
         <div className="bg-card/80 backdrop-blur-md p-2 rounded-full shadow-xl border border-border">
@@ -44,7 +42,7 @@ export default function CVPage() {
 
       {/* 2. BACKGROUND TEXTURES (Screen Only) - CLEAN FROSTED LOOK */}
         <div className="fixed inset-0 pointer-events-none print:hidden">
-          {/* Just a clean, subtle gradient to support the global frosted look */}
+          {/* global frosted look */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
         </div>
 

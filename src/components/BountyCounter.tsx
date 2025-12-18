@@ -23,10 +23,9 @@ export function BountyCounter({ value = 3000000000 }: { value?: number }) {
 
   useEffect(() => {
     // 4. Listen to the changes and update the DOM text directly
-    // This bypasses React render cycles for maximum performance
     const unsubscribe = springValue.on("change", (latest) => {
       if (ref.current) {
-        // Format with commas (e.g. 3,000,000)
+        // Format with commas
         ref.current.textContent = Intl.NumberFormat("en-US").format(Math.floor(latest));
       }
     });

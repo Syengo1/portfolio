@@ -52,7 +52,7 @@ export default function Home() {
       <div className="w-full max-w-7xl mx-auto z-20 mb-0 relative">
         <Hero />
         
-        {/* THIS IS THE ONLY "CHART COURSE" INDICATOR WE KEEP */}
+        {/* CHART COURSE */}
         <motion.div 
           style={{ opacity: scrollHintOpacity }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs font-mono text-muted-foreground animate-bounce hidden md:block"

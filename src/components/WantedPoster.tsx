@@ -61,13 +61,12 @@ export function WantedPoster() {
     if (timerRef.current) clearTimeout(timerRef.current);
     
     if (!isActive) {
-      // If we tapped quickly (didn't wait 500ms), toggle the Easter Egg
       setShowEasterEgg(true);
       setTimeout(() => setShowEasterEgg(false), 3000);
     }
 
-    setIsActive(false); // Lock physics again
-    x.set(0); // Reset tilt
+    setIsActive(false);
+    x.set(0); 
     y.set(0);
   }
 
@@ -91,12 +90,7 @@ export function WantedPoster() {
           scale: isActive ? 1.05 : 1, // Visual feedback: scale up when active
         }}
         transition={{ duration: 0.8, type: "spring" }}
-        
-        // CSS CLASS: 'touch-none' prevents scrolling ONLY when dragging on this specific element
-        // But since we want default scrolling, we rely on the user dragging OUTSIDE the timer window.
-        // Actually, for this specific "Long Press" logic to feel right, we allow scrolling by default
-        // and only block it via CSS if we could, but 'touch-action' is static.
-        // A better UX for mobile web is: Don't block scroll. Just animate if they happen to hold.
+    
         className={`relative w-[320px] md:w-[380px] aspect-[1/1.45] cursor-pointer group select-none ${
           isActive ? "z-50" : ""
         }`}
@@ -108,7 +102,7 @@ export function WantedPoster() {
           style={{ 
             backgroundColor: "#F2E6D0", 
             boxShadow: isActive 
-              ? "0 0 0 4px #a855f7, inset 0 0 60px rgba(62, 50, 40, 0.15)" // Purple Ring when Active
+              ? "0 0 0 4px #a855f7, inset 0 0 60px rgba(62, 50, 40, 0.15)" 
               : "inset 0 0 60px rgba(62, 50, 40, 0.15)" 
           }}
         >
@@ -146,7 +140,7 @@ export function WantedPoster() {
                 </div>
              </div>
              
-             {/* "Hold to Interact" Hint (Only visible on mobile when idle) */}
+             {/* "Hold to Interact */}
              <motion.div 
                initial={{ opacity: 0 }}
                animate={{ opacity: isActive ? 0 : 1 }}

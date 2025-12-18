@@ -75,7 +75,7 @@ export function EasterEggManager() {
               transition={{ 
                 repeat: Infinity, 
                 duration: 0.5, 
-                ease: "easeInOut", // FIX: Changed from 'spring' to 'easeInOut'
+                ease: "easeInOut",
               }}
               className="relative w-[300px] h-[1080px] md:w-[1920px] md:h-[500px]"
             >
@@ -97,7 +97,7 @@ export function EasterEggManager() {
           <motion.div
             initial={{ scale: 0.8, opacity: 0.5, borderWidth: "50px" }}
             animate={{ scale: 2, opacity: 0, borderWidth: "0px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }} // Standard ease works best here
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="fixed inset-0 z-50 pointer-events-none border-white rounded-full"
             style={{ left: "50%", top: "50%", width: 0, height: 0, x: "-50%", y: "-50%" }}
           />

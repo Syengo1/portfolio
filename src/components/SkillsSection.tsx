@@ -13,7 +13,7 @@ export function SkillsSection() {
   return (
     <section className="relative w-full py-24 px-4 md:px-12 flex flex-col items-center justify-center overflow-hidden">
       
-      {/* 1. BACKGROUND (Clean - No Grids) */}
+      {/* 1. BACKGROUND */}
       <div className="absolute inset-0 bg-transparent transition-colors duration-500 -z-20" />
 
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center z-10">

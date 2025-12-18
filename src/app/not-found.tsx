@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { StrawHatToggle } from "@/components/StrawHatToggle"; // Import the Toggle
+import { StrawHatToggle } from "@/components/StrawHatToggle";
 
 export default function NotFound() {
   return (

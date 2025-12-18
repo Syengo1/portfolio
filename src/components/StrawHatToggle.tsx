@@ -15,7 +15,6 @@ export function StrawHatToggle() {
   if (!mounted) return null;
 
   // FIX 2: Check 'resolvedTheme' instead of 'theme'
-  // This ensures the toggle works instantly even if the setting is "system"
   const isDark = resolvedTheme === "dark";
 
   const handleToggle = () => {
@@ -25,7 +24,7 @@ export function StrawHatToggle() {
     setTimeout(() => setIsAnimating(false), 600);
   };
 
-  // --- ANIMATION VARIANTS (The "Coding Skills" Flex) ---
+  // --- ANIMATION VARIANTS ---
   const hatVariants = {
     light: {
       rotate: 0,
@@ -38,7 +37,7 @@ export function StrawHatToggle() {
       filter: "drop-shadow(0px 0px 15px #9333ea)", // Purple Haki Glow
     },
     tap: {
-      scale: 0.8, // Rubber compression
+      scale: 0.8, 
       rotate: -15,
     },
   };
@@ -56,7 +55,7 @@ export function StrawHatToggle() {
       >
         <div className="w-14 h-14 relative">
           
-          {/* THE MANGA EFFECT: "GUMO!!" Text Popup */}
+          {/* "GUMO!!" Text Popup */}
           <AnimatePresence>
             {isAnimating && (
               <motion.div
@@ -88,7 +87,7 @@ export function StrawHatToggle() {
               }}
             />
             
-            {/* 2. Red Ribbon (Luffy's Trademark) */}
+            {/* 2. Red Ribbon */}
             <motion.rect
               x="25"
               y="50"

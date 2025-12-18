@@ -117,12 +117,10 @@ export function Hero() {
     offset: ["start start", "end start"] 
   });
 
-  // UX IMPROVEMENT: Parallax & Opacity
   // 1. Slow down the parallax (0% -> 10%) so elements don't "run away" from the user.
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   
   // 2. The "Cliff Fade": Stay fully visible (1) until 75% scroll, then rapidly fade to 0 by 95%.
-  // This ensures buttons are clickable for the entire hero duration but vanish instantly before overlapping the next section.
   const opacity = useTransform(scrollYProgress, [0, 0.75, 0.95], [1, 1, 0]);
 
   const scrollToProjects = () => {
@@ -138,8 +136,7 @@ export function Hero() {
 
   return (
     <section 
-      ref={containerRef} 
-      // Adjusted padding: pt-24 provides breathing room for navbar, pb-12 ensures poster fits
+      ref={containerRef}
       className="min-h-screen w-full flex flex-col md:flex-row items-center justify-center px-6 md:px-12 pt-24 pb-12 relative overflow-hidden perspective-1000"
     >
       

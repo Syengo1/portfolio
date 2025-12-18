@@ -12,13 +12,11 @@ export interface ProjectType {
   liveLink?: string;
   repoLink?: string;
   isDeployed: boolean;
-  difficulty: "Rookie" | "Supernova" | "Emperor";
+ difficulty: "Rookie" | "Supernova" | "Emperor";
 }
 
 export function ProjectCard({ project, index }: { project: ProjectType; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  
-  // Logic: Only show "Read More" if text is longer than ~120 characters
   const isLongDescription = project.description.length > 120;
 
   // Difficulty Color Mapping
@@ -30,7 +28,7 @@ export function ProjectCard({ project, index }: { project: ProjectType; index: n
 
   return (
     <motion.div
-      layout // Enables smooth resizing animations when "Read More" is toggled
+      layout 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

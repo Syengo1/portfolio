@@ -2,10 +2,10 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Github, Linkedin, Twitter, Instagram, Smartphone } from "lucide-react";
-import { DenDenMushi } from "./DenDenMushi"; // Import your custom snail
+import { DenDenMushi } from "./DenDenMushi";
 import { useState } from "react";
 
-// TIKTOK ICON (Custom SVG since Lucide doesn't have it)
+// TIKTOK ICON
 const TikTokIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
@@ -18,7 +18,6 @@ export function ContactSection() {
 
   const handlePhoneClick = () => {
     setShowPuru(true);
-    // Simulate copying or calling action
     navigator.clipboard.writeText("+254 114 513 647");
     setTimeout(() => setShowPuru(false), 2000);
   };
@@ -48,7 +47,7 @@ export function ContactSection() {
             
             <div className="font-mono text-[10px] md:text-xs text-muted-foreground uppercase tracking-widest flex items-center gap-2">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
-              {/* Conditional Text based on Theme (handled via CSS variables usually, but simple text switch here works too) */}
+              {/* Conditional Text based on Theme  */}
               <span>SIGNAL_STRENGTH: 100%</span>
             </div>
           </div>
@@ -102,7 +101,7 @@ export function ContactSection() {
               </button>
             </div>
 
-            {/* --- SOCIAL LINKS (Bounty Poster Style) --- */}
+            {/* --- SOCIAL LINKS --- */}
             <div className="mt-12 flex flex-col items-center">
               <span className="text-xs font-mono text-muted-foreground mb-4 tracking-[0.2em] uppercase">
                 Find me on the Sea

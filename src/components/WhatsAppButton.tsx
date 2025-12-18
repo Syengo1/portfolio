@@ -8,8 +8,6 @@ export function WhatsAppButton() {
   const message = "Ahoy Antony! I'm interested in forming an alliance (hiring/project).";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-  // Prevent hydration mismatch since we rely on theme-dependent rendering
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -50,7 +48,6 @@ export function WhatsAppButton() {
         aria-label="Chat on WhatsApp"
       >
         <div className="relative w-7 h-7 md:w-9 md:h-9">
-           {/* SVG Icon using 'currentColor' to adapt to text color changes */}
           <svg 
             viewBox="0 0 360 362" 
             fill="none" 
@@ -65,10 +62,7 @@ export function WhatsAppButton() {
             />
           </svg>
           
-          {/* Notification Dot Logic: 
-              - Idle: Pulses Red/Green to catch attention.
-              - Hover: Disappears to clean up the UI for the click.
-          */}
+          {/* Notification Dot Logic */}
           <span className="absolute -top-1 -right-1 flex h-3 w-3 md:h-4 md:w-4 transition-opacity duration-300 group-hover:opacity-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 dark:bg-[#25D366]"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-red-600 dark:bg-[#25D366] border-2 border-background"></span>

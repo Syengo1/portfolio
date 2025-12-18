@@ -16,8 +16,7 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
 
-  // LOGIC: If we are on the CV page, hide this global navbar.
-  // The CV page has its own dedicated navigation controls.
+
   if (pathname === "/cv") {
     return null;
   }
