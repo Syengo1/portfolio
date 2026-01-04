@@ -86,10 +86,7 @@ export default function CVPage() {
                 <span>linkedin.com/in/antony-syengo</span>
                 <Linkedin size={14} className="text-blue-600 dark:text-blue-400 print:text-black" />
               </Link>
-              <Link href="https://github.com/Syengo1" target="_blank" className="flex items-center justify-end gap-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
-                <span>github.com/Syengo1</span>
-                <Github size={14} className="text-blue-600 dark:text-blue-400 print:text-black" />
-              </Link>
+              
             </div>
           </header>
 

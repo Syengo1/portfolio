@@ -109,7 +109,6 @@ export function ContactSection() {
               
               <div className="flex gap-4">
                 {[
-                  { icon: <Github size={20} />, href: "https://github.com/Syengo1", label: "GitHub" },
                   { icon: <Linkedin size={20} />, href: "https://www.linkedin.com/in/antony-syengo-202048242?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", label: "LinkedIn" },
                   { icon: <Twitter size={20} />, href: "https://x.com/syengoo", label: "X (Twitter)" },
                   { icon: <Instagram size={20} />, href: "https://www.instagram.com/_sye.ngo_/", label: "Instagram" },
