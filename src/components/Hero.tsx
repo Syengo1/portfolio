@@ -208,13 +208,13 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
         >
           <MagneticButton onClick={scrollToProjects} variant="primary" aria-label="Scroll to Projects Section">
-            <span>Set Sail (Projects)</span>
+            <span>Projects</span>
             <Anchor size={18} className="group-hover:rotate-45 transition-transform" />
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
           </MagneticButton>
           
           <MagneticButton onClick={handleViewCv} variant="secondary" aria-label="Navigate to CV Page">
-            <span>View Bounty (CV)</span>
+            <span>View CV</span>
             <Download size={18} className="group-hover:translate-y-1 transition-transform" />
           </MagneticButton>
         </motion.div>

@@ -8,7 +8,7 @@ import { GraduationCap, Briefcase, Code, MapPin } from "lucide-react";
 const HISTORY = [
   {
     date: "2025 - Present",
-    title: "Full-Stack Data Scientist",
+    title: "Full-Stack Developer & Data Scientist",
     location: "Nairobi, Kenya (Freelance / Contract)",
     description: "Building scalable web apps for SMEs using Next.js & Supabase. Integrating M-PESA Daraja APIs and deploying predictive models for local businesses.",
     icon: <Code size={20} />,

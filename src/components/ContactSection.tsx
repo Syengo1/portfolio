@@ -60,7 +60,7 @@ export function ContactSection() {
             </h2>
             
             <p className="text-muted-foreground max-w-lg mx-auto mb-10 text-lg leading-relaxed">
-              Whether you need a Navigator (Data Scientist) or a Shipwright (Full-Stack Dev), 
+              Whether you need a Data Scientist or a Full-Stack Dev, 
               my transponder snail is always listening.
             </p>
 

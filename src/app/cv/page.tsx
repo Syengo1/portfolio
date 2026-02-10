@@ -3,6 +3,7 @@
 import { Mail, Phone, MapPin, Linkedin, Globe, Printer, Github, ExternalLink, Award } from "lucide-react";
 import Link from "next/link";
 import { StrawHatToggle } from "@/components/StrawHatToggle";
+import { PROJECTS } from "@/components/ProjectsSection";
 
 export default function CVPage() {
   return (
@@ -58,7 +59,7 @@ export default function CVPage() {
                 Antony <span className="text-blue-600 dark:text-blue-400 print:text-black">Syengo</span>
               </h1>
               <p className="text-lg font-mono font-bold text-muted-foreground tracking-[0.2em] uppercase print:text-slate-600">
-                // Full-Stack Data Scientist
+                Full Stack Developer and Data Scientist
               </p>
             </div>
             
@@ -141,38 +142,39 @@ export default function CVPage() {
             </div>
           </section>
 
-          {/* --- PROJECTS --- */}
+          {/* --- PROJECTS (DYNAMIC) --- */}
           <section className="mb-8 print:break-inside-avoid">
             <h2 className="text-xl font-serif font-bold text-foreground mb-4 flex items-center gap-3 print:text-black">
               Personal Projects
               <span className="h-[1px] flex-grow bg-border print:bg-slate-300"></span>
             </h2>
-            <div className="space-y-5">
-              <div className="print:break-inside-avoid">
-                <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="text-base font-bold text-foreground print:text-black">
-                    Project Notsro <span className="text-xs font-normal text-muted-foreground ml-1 print:text-slate-600">| Full Stack Restaurant Management Web App</span>
-                  </h3>
-                  <span className="text-xs font-mono text-blue-600 dark:text-blue-400 print:text-black">2025</span>
+            <div className="space-y-6">
+              {PROJECTS.map((project, index) => (
+                <div key={index} className="print:break-inside-avoid">
+                  <div className="flex justify-between items-baseline mb-2">
+                    <h3 className="text-base font-bold text-foreground print:text-black flex items-center gap-2">
+                      {project.title}
+                      {project.isDeployed && (
+                        <a href={project.liveLink} target="_blank" className="print:hidden text-muted-foreground hover:text-blue-600">
+                          <ExternalLink size={12} />
+                        </a>
+                      )}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground print:text-slate-800 leading-relaxed mb-2 text-justify">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-x-2 gap-y-1">
+                    {project.techStack.map((tech) => (
+                      <span key={tech} className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded border border-border text-muted-foreground print:border-slate-400 print:text-slate-700">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <ul className="list-disc list-inside text-sm text-muted-foreground print:text-slate-800 space-y-1">
-                  <li><strong>Architected</strong> a full-stack management system for a restaurant, including a staff panel <strong>99%</strong>.</li>
-                  <li><strong>Integrated M-PESA Daraja API</strong> to enable real-time mobile payments and automated transaction reconciliation. (Not in the deployed version)</li>
-                  <li><strong>Engineered</strong> an analytics dashboard to showcase orders, live reviews among others.</li>
-                </ul>
-              </div>
-              <div className="print:break-inside-avoid">
-                <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="text-base font-bold text-foreground print:text-black">
-                    Driveflow <span className="text-xs font-normal text-muted-foreground ml-1 print:text-slate-600">| Car Rental System (Not yet Deployed)</span>
-                  </h3>
-                  <span className="text-xs font-mono text-blue-600 dark:text-blue-400 print:text-black">2025</span>
-                </div>
-                <ul className="list-disc list-inside text-sm text-muted-foreground print:text-slate-800 space-y-1">
-                  <li><strong>Developed</strong> a real-time car rental system using <strong>Next.js, supabase</strong> and integrated SmileId and Daraja.</li>
-                  <li><strong>Engineered</strong> a full admin control panel, to post their fleets, maintain them and run their business from their phone.</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </section>
 

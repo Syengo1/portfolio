@@ -22,8 +22,8 @@ const playfair = Playfair_Display({
 
 // 2. METADATA (SEO)
 export const metadata: Metadata = {
-  title: "Antony Syengo | Full-Stack Data Scientist",
-  description: "The professional portfolio of Antony Syengo, a Full-Stack Data Scientist bridging the gap between complex statistical modeling and production-grade web applications.",
+  title: "Antony Syengo | Full-Stack Software Developer and Data Scientist",
+  description: "The portfolio of Antony Syengo, a Full-Stack Developer and Data Scientist bridging the gap between complex statistical modeling and production-grade web applications.",
 };
 
 export default function RootLayout({

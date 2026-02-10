@@ -2,7 +2,18 @@
 
 import { ProjectCard, ProjectType } from "./ProjectCard";
 
-const PROJECTS: ProjectType[] = [
+// ADDED "export" HERE so other files can access the data
+export const PROJECTS: ProjectType[] = [
+
+  {
+    title: "Nairobi Streetwear",
+    description: "NSwear is a Vertical SaaS Operating System designed to power the next generation of Kenyan fashion brands. By unifying E-Commerce and Point of Sale (POS) capabilities into a single robust platform, it eliminates the need for fragmented business tools. NSwear orchestrates the entire commerce lifecycle from real-time inventory synchronization and content management (CMS) to order processing and logistics delivering a flawless, scalable workflow for modern streetwear labels.",
+    image: "/nsw.png",
+    techStack: ["Next.js", "React", "Supabase", "Daraja API", "TypeScript", "TailwindCSS", "Framer-Motion", "Lucide React"],
+    liveLink: "https://nswear.vercel.app/",
+    isDeployed: true,
+    difficulty: "Emperor",
+  },
   {
     title: "Crack OS",
     description: "Crack OS is a Vertical SaaS Operating System engineered specifically for modern Quick Service Restaurants (QSRs). By fusing a hybrid Point of Sale (POS) and E-Commerce interface with a robust Business Management System (BMS), it replaces fragmented tools to manage the entire lifecycle of a food order from the customer's initial craving to the kitchen's final preparation. Built for scale, it delivers seamless Multi Branch Support, unifying realtime inventory and sales data across all physical locations into one flawless, synchronized workflow.",
