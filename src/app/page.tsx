@@ -65,12 +65,12 @@ export default function Home() {
         <ExperienceSection />
       </div>
 
-      <div id="about" className="w-full z-20">
-         <SkillsSection />
-      </div>
-
       <div id="projects" className="w-full z-20">
         <ProjectsSection />
+      </div>
+
+      <div id="about" className="w-full z-20">
+         <SkillsSection />
       </div>
 
       <div id="contact" className="w-full z-20">
