@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, { useState, useRef } from "react";
+import Image from "next/image";
 import { BountyCounter } from "./BountyCounter";
 
 const PAPER_TEXTURE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E")`;
@@ -127,10 +128,11 @@ export function WantedPoster() {
           <div className="w-full flex-1 flex flex-col relative mb-[2%]">
              <div className="relative w-full flex-grow bg-[#B0A088] dark:bg-slate-700 p-[1.5%] shadow-inner rotate-[-0.5deg]">
                 <div className="w-full h-full border-[2px] border-[#3E3228] dark:border-gray-500 relative overflow-hidden">
-                   <img 
-                     src=/*"https://api.dicebear.com/7.x/avataaars/svg?seed=Antony&backgroundColor=transparent" */ "/profile2.png"
+                   <Image 
+                     src="/profile2.webp"
                      alt="Profile" 
-                     className={`w-full h-full object-cover transition-all duration-500 ${
+                     fill
+                     className={`object-cover transition-all duration-500 ${
                         showEasterEgg ? "grayscale-0 contrast-100" : "grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100"
                      }`}
                    />
@@ -161,7 +163,7 @@ export function WantedPoster() {
           {/* NAME */}
           <div className="w-full text-center mt-4 mb-2">
             <h3 className="font-serif text-3xl md:text-4xl uppercase font-black tracking-wide leading-[0.9]">
-               ANTONY <span className={`transition-colors duration-300 ${showEasterEgg ? "text-blue-500" : "text-[#8B0000] dark:text-[#ef4444]"}`}>"D."</span>
+               ANTONY <span className={`transition-colors duration-300 ${showEasterEgg ? "text-blue-500" : "text-[#8B0000] dark:text-[#ef4444]"}`}>&quot;D.&quot;</span>
             </h3>
             <h3 className="font-serif text-3xl md:text-4xl uppercase font-black tracking-wide leading-[0.9]">
                SYENGO
