@@ -4,7 +4,16 @@ import { ProjectCard, ProjectType } from "./ProjectCard";
 
 // ADDED "export" HERE so other files can access the data
 export const PROJECTS: ProjectType[] = [
-
+  
+  {
+    title: "Maasai Action Aid Initiative",
+    description: "Maasai Action Aid Initiative is a comprehensive NGO web platform designed to further their reach and impact. The website features a modern, responsive design with a focus on storytelling and community engagement. It includes sections for showcasing their projects, sharing news and updates, and facilitating donations. The platform is expected to grow into a more robust system. The website has been developed with a focus on scalability and user experience, ensuring that it can evolve alongside the organization's expanding needs. It is SEO-optimized and built with accessibility in mind.",
+    image: "/maai.png",
+    techStack: ["Next.js", "React", "Formspree", "TypeScript", "TailwindCSS", "Framer-Motion", "Lucide React"],
+    liveLink: "https://maactionaid.org/",
+    isDeployed: true,
+    difficulty: "Emperor",
+  },
   {
     title: "Nairobi Streetwear",
     description: "NSwear is a Vertical SaaS Operating System designed to power the next generation of Kenyan fashion brands. By unifying E-Commerce and Point of Sale (POS) capabilities into a single robust platform, it eliminates the need for fragmented business tools. NSwear orchestrates the entire commerce lifecycle from real-time inventory synchronization and content management (CMS) to order processing and logistics delivering a flawless, scalable workflow for modern streetwear labels.",
