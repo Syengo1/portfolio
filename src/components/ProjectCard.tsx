@@ -132,7 +132,7 @@ export function ProjectCard({ project, index }: { project: ProjectType; index: n
               <>
                 <a href={project.liveLink} target="_blank" rel="noopener noreferrer" 
                    className="flex items-center gap-2 text-sm font-bold text-primary hover:underline hover:text-primary/80 transition-colors">
-                  <ExternalLink size={16} /> Visit Island
+                  <ExternalLink size={16} /> Visit live site
                 </a>
                 <a href={project.repoLink} target="_blank" rel="noopener noreferrer"
                    className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
