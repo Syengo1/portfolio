@@ -100,16 +100,23 @@ export function Hero() {
 
   // Initialize particles on mount
   useEffect(() => {
-    const generatedParticles = [...Array(6)].map((_, i) => ({
-      id: i,
-      initialX: Math.random() * 100,
-      moveX: Math.random() * 200 - 100,
-      rotation: Math.random() * 360,
-      duration: 10 + Math.random() * 10,
-      delay: i * 2,
-      left: `${10 + Math.random() * 80}%`
-    }));
-    setParticles(generatedParticles);
+    // Defer the state update to the next event loop tick to avoid cascading renders
+    const timeoutId = setTimeout(() => {
+      const generatedParticles = [...Array(6)].map((_, i) => ({
+        id: i,
+        initialX: Math.random() * 100,
+        moveX: Math.random() * 200 - 100,
+        rotation: Math.random() * 360,
+        duration: 10 + Math.random() * 10,
+        delay: i * 2,
+        left: `${10 + Math.random() * 80}%`
+      }));
+      
+      setParticles(generatedParticles);
+    }, 0);
+
+    // Cleanup the timeout if the component unmounts quickly
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const { scrollYProgress } = useScroll({ 
@@ -196,8 +203,8 @@ export function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg mx-auto md:mx-0 font-sans"
         >
-          I bridge the gap between <span className="text-foreground font">complex algorithms</span> (Data) 
-          and <span className="text-foreground font">beautiful design</span> (Frontend). 
+          I bridge the gap between <span className="text-foreground font-bold">complex algorithms</span> (Data) 
+          and <span className="text-foreground font-bold">beautiful design</span> (Frontend). 
           Synthesizing data at JKUAT to build the future of the Kenyan web.
         </motion.p>
 

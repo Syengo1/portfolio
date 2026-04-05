@@ -30,12 +30,12 @@ export default function Home() {
       </div>
 
       {/* BELOW THE FOLD (Lazy Loaded JS Chunks) */}
-      <div id="experience" className="w-full z-20">
-        <ExperienceSection />
-      </div>
-
       <div id="projects" className="w-full z-20">
         <ProjectsSection />
+      </div>
+      
+      <div id="experience" className="w-full z-20">
+        <ExperienceSection />
       </div>
 
       <div id="about" className="w-full z-20">
