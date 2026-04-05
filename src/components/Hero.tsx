@@ -196,8 +196,8 @@ export function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg mx-auto md:mx-0 font-sans"
         >
-          I bridge the gap between <span className="text-foreground font-bold">complex algorithms</span> (Data) 
-          and <span className="text-foreground font-bold">beautiful design</span> (Frontend). 
+          I bridge the gap between <span className="text-foreground font">complex algorithms</span> (Data) 
+          and <span className="text-foreground font">beautiful design</span> (Frontend). 
           Synthesizing data at JKUAT to build the future of the Kenyan web.
         </motion.p>
 
