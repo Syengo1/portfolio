@@ -182,8 +182,8 @@ export function WantedPoster() {
           {/* FOOTER */}
           <div className="w-full flex justify-between items-end opacity-60">
              <div className="flex flex-col text-[0.4rem] leading-tight font-mono max-w-[60%] text-left">
-                <span>KONO SAKUHIN WA FICTION DET...</span>
-                <span>JKUAT DATA SCIENCE DIVISION</span>
+               {/* <span>KONO SAKUHIN WA FICTION DET...</span> */}
+                <span>DATA SCIENCE & SOFTWARE DEVELOPMENT DIVISION</span>
              </div>
              <span className="font-serif font-bold text-lg tracking-widest">MARINE</span>
           </div>
