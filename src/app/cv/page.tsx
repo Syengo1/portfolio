@@ -185,6 +185,19 @@ export default function CVPage() {
               <span className="h-[1px] flex-grow bg-border print:bg-slate-300"></span>
             </h2>
             <div className="space-y-6">
+              
+              <div className="pl-4 border-l-2 border-border print:border-slate-300 print:break-inside-avoid">
+                <div className="flex justify-between items-baseline mb-1">
+                  <h3 className="font-bold text-foreground print:text-black">Freelancing</h3>
+                  <span className="text-xs font-mono text-muted-foreground print:text-black">Freelance | 2025 - Present</span>
+                </div>
+                <ul className="list-disc list-inside text-sm text-muted-foreground print:text-slate-800 space-y-1">
+                  <li><strong>Designed & Developed</strong> the official NGO website of <a href="https://maactionaid.org/" target="_blank" className="text-blue-600 dark:text-blue-400 hover:underline print:text-black print:no-underline">Maasai Action Aid Initiative</a>.</li>
+                  <li>Applied SEO strategies, performance tuning, and cross-browser compatibility techniques</li>
+                  {/*<li>.Maintained code quality and ensured secure, reliable deployment.</li>*/}
+                </ul>
+              </div>
+              
               <div className="pl-4 border-l-2 border-border print:border-slate-300 print:break-inside-avoid">
                 <div className="flex justify-between items-baseline mb-1">
                   <h3 className="font-bold text-foreground print:text-black">IT Support Intern</h3>
