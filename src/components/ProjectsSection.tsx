@@ -4,6 +4,24 @@ import { ProjectCard, ProjectType } from "./ProjectCard";
 
 // ADDED "export" HERE so other files can access the data
 export const PROJECTS: ProjectType[] = [
+  {
+    title: "Kilimani HairOS",
+    description: "Kilimani HairOS is a Saas, designed for a wig business to handle online orders, logistics, Inventonry and sales management e.t.c. It also acts as the business' POS system.",
+    image: "/klmhair.png",
+    techStack: ["Next.js", "React", "Supabase", "TypeScript", "TailwindCSS", "Framer-Motion", "Lucide React", "PostgresSql", "Docker", "Zustand", "Daraja API", "Google Console APIs" ],
+    liveLink: "https://www.kilimanihair.com/",
+    isDeployed: true,
+    difficulty: "Emperor",
+  },
+  {
+    title: "De Lica POS",
+    description: "De Lica POS is a modern, PWA, offline-first, Point Of Sale System for a liquor store. ",
+    image: "/pos.png",
+    techStack: ["Vite", "React", "Supabase", "JavaScript", "TailwindCSS", "Framer-Motion", "Lucide React", "PostgresSql", "Docker", ],
+    liveLink: "https://delica-alpha.vercel.app/",
+    isDeployed: true,
+    difficulty: "Emperor",
+  },
   
   {
     title: "Maasai Action Aid Initiative",
@@ -15,11 +33,11 @@ export const PROJECTS: ProjectType[] = [
     difficulty: "Emperor",
   },
   {
-    title: "Nairobi Streetwear",
-    description: "NSwear is a Vertical SaaS Operating System designed to power the next generation of Kenyan fashion brands. By unifying E-Commerce and Point of Sale (POS) capabilities into a single robust platform, it eliminates the need for fragmented business tools. NSwear orchestrates the entire commerce lifecycle from real-time inventory synchronization and content management (CMS) to order processing and logistics delivering a flawless, scalable workflow for modern streetwear labels.",
+    title: "Op Fits",
+    description: "Opfits is a Vertical SaaS Operating System designed to power the next generation of Kenyan fashion brands. By unifying E-Commerce and Point of Sale (POS) capabilities into a single robust platform, it eliminates the need for fragmented business tools. Opfits orchestrates the entire commerce lifecycle from real-time inventory synchronization and content management (CMS) to order processing and logistics delivering a flawless, scalable workflow for modern streetwear labels.",
     image: "/nsw.png",
     techStack: ["Next.js", "React", "Supabase", "Daraja API", "TypeScript", "TailwindCSS", "Framer-Motion", "Lucide React"],
-    liveLink: "https://nswear.vercel.app/",
+    liveLink: "https://www.opfits.com/",
     isDeployed: true,
     difficulty: "Emperor",
   },

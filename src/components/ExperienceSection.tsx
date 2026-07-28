@@ -24,7 +24,7 @@ const HISTORY = [
   },
   {
     date: "2024",
-    title: "Intern",
+    title: "Attachment",
     location: "The National Treasury, Kenya",
     description: "Honed and Perfected my skills.",
     icon: <Briefcase size={20} />,
