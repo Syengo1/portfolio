@@ -200,7 +200,7 @@ export default function CVPage() {
               
               <div className="pl-4 border-l-2 border-border print:border-slate-300 print:break-inside-avoid">
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="font-bold text-foreground print:text-black">IT Support Intern</h3>
+                  <h3 className="font-bold text-foreground print:text-black">IT Support Attachee</h3>
                   <span className="text-xs font-mono text-muted-foreground print:text-black">The National Treasury | 2024</span>
                 </div>
                 <ul className="list-disc list-inside text-sm text-muted-foreground print:text-slate-800 space-y-1">
