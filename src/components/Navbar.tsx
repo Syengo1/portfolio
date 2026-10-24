@@ -1,61 +1,168 @@
+// src/components/Navbar.tsx
 "use client";
 
-import { Home, User, Code, PenTool, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Home,
+  Code2,
+  BriefcaseBusiness,
+  Mail,
+} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
 
 const navItems = [
-  { name: "Home", icon: <Home size={20} />, href: "/" },
-  { name: "Projects", icon: <Code size={20} />, href: "#projects" },
-  { name: "About", icon: <User size={20} />, href: "#about" },
-  { name: "Contact", icon: <Mail size={20} />, href: "#contact" },
-];
+  {
+    name: "Home",
+    icon: Home,
+    href: "/#home",
+    target: "home",
+  },
+  {
+    name: "Projects",
+    icon: Code2,
+    href: "/#projects",
+    target: "projects",
+  },
+  {
+    name: "Experience",
+    icon: BriefcaseBusiness,
+    href: "/#experience",
+    target: "experience",
+  },
+  {
+    name: "Contact",
+    icon: Mail,
+    href: "/#contact",
+    target: "contact",
+  },
+] as const;
+
+// REMOVED "about" to match your navItems
+const sectionIds = ["projects", "experience", "contact"] as const;
 
 export function Navbar() {
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
+  const [activeTarget, setActiveTarget] = useState("home");
+  const rafRef = useRef<number | null>(null);
 
+  useEffect(() => {
+    // FIX: Simply return early if not on the home page. 
+    // We do NOT call setActiveTarget("") here to avoid the ESLint cascading render error.
+    if (pathname !== "/") {
+      return;
+    }
 
-  if (pathname === "/cv") {
+    const updateActiveTarget = () => {
+      const activationLine = window.innerHeight * 0.35;
+      let currentTarget = "home";
+
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= activationLine) {
+          currentTarget = id;
+        }
+      }
+
+      setActiveTarget(currentTarget);
+    };
+
+    const handleScroll = () => {
+      if (rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(() => {
+          updateActiveTarget();
+          rafRef.current = null;
+        });
+      }
+    };
+
+    updateActiveTarget();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [pathname]);
+
+  if (pathname === "/cv" || pathname.startsWith("/cv/")) {
     return null;
   }
 
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0 }}
+      initial={shouldReduceMotion ? false : { y: 24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.5, type: "spring", stiffness: 120 }}
-      className="fixed z-50 
-        bottom-6 left-1/2 -translate-x-1/2  /* Mobile: Bottom Center */
-        md:top-6 md:bottom-auto             /* Desktop: Top Center */
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { delay: 0.25, type: "spring", stiffness: 120 }
+      }
+      className="
+        fixed z-50 left-1/2 -translate-x-1/2
+        bottom-[calc(1rem+env(safe-area-inset-bottom))]
+        md:bottom-auto md:top-6
+        w-[96%] sm:w-auto max-w-[500px]
       "
     >
-      <nav className="flex items-center gap-1 px-2 py-2 rounded-full 
-        bg-background/80 backdrop-blur-lg border border-border shadow-2xl
-      ">
+      <nav
+        aria-label="Primary navigation"
+        className="
+          flex items-center justify-between sm:justify-center gap-1 sm:gap-2 w-full
+          rounded-[2rem] md:rounded-full
+          border border-border/50
+          bg-background/85 backdrop-blur-xl
+          p-1.5 md:p-2 shadow-2xl
+        "
+      >
         {navItems.map((item) => {
-          // Check if active (simple logic for now)
-          const isActive = pathname === item.href; 
+          const Icon = item.icon;
+          const isActive = pathname === "/" && activeTarget === item.target;
 
           return (
-            <Link key={item.name} href={item.href}>
-              <motion.div
-                className={`relative px-4 py-3 rounded-full flex items-center justify-center transition-colors
-                  ${isActive 
-                    ? "text-primary-foreground bg-primary" 
-                    : "text-foreground/60 hover:text-foreground hover:bg-foreground/10"
+            <motion.div
+              key={item.name}
+              // flex-1 on mobile makes items distribute perfectly with zero overflow
+              className="flex-1 sm:flex-none"
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
+            >
+              <Link
+                href={item.href}
+                aria-label={item.name}
+                aria-current={
+                  isActive ? (item.target === "home" ? "page" : "location") : undefined
+                }
+                className={`
+                  flex w-full flex-col md:flex-row items-center justify-center 
+                  gap-1 md:gap-2 rounded-2xl md:rounded-full
+                  py-2 px-1 md:py-2.5 md:px-4
+                  transition-colors duration-300
+                  focus-visible:outline-none
+                  focus-visible:ring-2
+                  focus-visible:ring-primary
+                  focus-visible:ring-offset-2
+                  ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-foreground/70 hover:bg-foreground/10 hover:text-foreground"
                   }
                 `}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
               >
-                {item.icon}
-                {/* Tooltip for Desktop only */}
-                <span className="sr-only md:not-sr-only md:ml-2 md:text-sm font-medium hidden md:block">
-                   {item.name}
+                {/* Fixed size to keep the vertical stack balanced on mobile */}
+                <Icon className="w-[18px] h-[18px] md:w-5 md:h-5" aria-hidden="true" />
+
+                {/* Text is tiny & bold on mobile, normal size on desktop */}
+                <span className="text-[10px] md:text-sm font-bold md:font-medium leading-none tracking-wide md:tracking-normal">
+                  {item.name}
                 </span>
-              </motion.div>
-            </Link>
+              </Link>
+            </motion.div>
           );
         })}
       </nav>

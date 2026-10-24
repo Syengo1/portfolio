@@ -1,20 +1,27 @@
+// src/components/WhatsAppButton.tsx
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+// Safe hydration check for Next.js (Replaces useState + useEffect)
+const emptySubscribe = () => () => {};
 
 export function WhatsAppButton() {
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,  // Client state
+    () => false  // Server state
+  );
+
   const phoneNumber = "254114513647";
   const message = "Ahoy Antony! I'm interested in forming an alliance (hiring/project).";
-  
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null;
+  if (!isMounted) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 print:hidden group">
+    <div className="fixed right-4 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] md:right-6 md:bottom-6 z-50 print:hidden group">
       <motion.a
         href={whatsappUrl}
         target="_blank"
@@ -28,20 +35,17 @@ export function WhatsAppButton() {
           flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
           transition-all duration-500 ease-out
           
-          /* --- INACTIVE STATE (Ghost/Glass Mode) --- */
-          /* Designed to blend in but remain discoverable */
-          bg-white/40 dark:bg-black/30 
-          backdrop-blur-md 
-          border border-black/5 dark:border-white/10
-          shadow-lg 
+          /* --- INACTIVE STATE (Matches Navbar Glassmorphism perfectly) --- */
+          bg-background/80 
+          backdrop-blur-xl 
+          border border-border/50
+          shadow-2xl 
           text-slate-600 dark:text-slate-400
           
           /* --- ACTIVE STATE (Hover/Focus) --- */
-          /* LIGHT MODE: Classic Brand Confidence (Solid Green) */
           hover:bg-[#25D366] hover:text-white hover:border-transparent
           hover:shadow-[0_8px_30px_rgba(37,211,102,0.4)]
           
-          /* DARK MODE: Sci-Fi / Haki Aesthetic (Glowing Translucent Green) */
           dark:hover:bg-[#25D366]/20 dark:hover:text-[#25D366] 
           dark:hover:border-[#25D366]/50 dark:hover:shadow-[0_0_30px_rgba(37,211,102,0.3)]
         "
@@ -62,7 +66,6 @@ export function WhatsAppButton() {
             />
           </svg>
           
-          {/* Notification Dot Logic */}
           <span className="absolute -top-1 -right-1 flex h-3 w-3 md:h-4 md:w-4 transition-opacity duration-300 group-hover:opacity-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 dark:bg-[#25D366]"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-red-600 dark:bg-[#25D366] border-2 border-background"></span>

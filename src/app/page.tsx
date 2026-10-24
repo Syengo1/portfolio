@@ -32,12 +32,13 @@ export default function Home() {
       <ScrollShip />
 
       {/* HERO SECTION (Static Import - Instant Load) */}
-      <div className="w-full max-w-7xl mx-auto z-20 mb-0 relative">
+      {/* Add id="home" here so the Navbar active state can track it */}
+      <div id="home" className="w-full max-w-7xl mx-auto z-20 mb-0 relative">
         <Hero />
         <ScrollHint />
       </div>
 
-      {/* BELOW THE FOLD (Child sections already own #projects, #experience, #contact IDs) */}
+      {/* BELOW THE FOLD (Child sections own #projects, #experience, #about, #contact IDs) */}
       <div className="w-full z-20">
         <ProjectsSection />
       </div>
@@ -46,7 +47,7 @@ export default function Home() {
         <ExperienceSection />
       </div>
 
-      <div id="about" className="w-full z-20">
+      <div className="w-full z-20">
         <SkillsSection />
       </div>
 

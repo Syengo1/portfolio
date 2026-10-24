@@ -99,6 +99,12 @@
     border-color: hsl(var(--border)); 
   }
   
+  html {
+    scroll-behavior: smooth;
+    /* Prevents section headers from sliding under the fixed desktop navbar */
+    scroll-padding-top: 100px;
+  }
+  
   body {
     /* FIX: Using native CSS for base colors */
     background-color: hsl(var(--background));
