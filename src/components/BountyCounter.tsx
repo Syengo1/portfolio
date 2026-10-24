@@ -1,44 +1,63 @@
+// src/components/BountyCounter.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+
+const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
 
 export function BountyCounter({ value = 3000000000 }: { value?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  
-  // 1. Set initial value to 0
+  const prefersReducedMotion = useReducedMotion();
+
   const motionValue = useMotionValue(0);
-  
-  // 2. Define the physics (Stiffness = speed, Damping = friction)
-  const springValue = useSpring(motionValue, { 
-    stiffness: 40, 
-    damping: 15,
-    mass: 1 
+  const springValue = useSpring(motionValue, {
+    stiffness: 45,
+    damping: 18,
+    mass: 1,
   });
 
   useEffect(() => {
-    // 3. Trigger the animation to the target value on mount
+    if (prefersReducedMotion) {
+      if (ref.current) {
+        ref.current.textContent = NUMBER_FORMATTER.format(value);
+      }
+      return;
+    }
+
+    // Start from 0 on client mount and spring up to target value
+    if (ref.current) {
+      ref.current.textContent = "0";
+    }
     motionValue.set(value);
-  }, [motionValue, value]);
+  }, [motionValue, value, prefersReducedMotion]);
 
   useEffect(() => {
-    // 4. Listen to the changes and update the DOM text directly
+    if (prefersReducedMotion) return;
+
     const unsubscribe = springValue.on("change", (latest) => {
       if (ref.current) {
-        // Format with commas
-        ref.current.textContent = Intl.NumberFormat("en-US").format(Math.floor(latest));
+        ref.current.textContent = NUMBER_FORMATTER.format(Math.floor(latest));
       }
     });
 
     return () => unsubscribe();
-  }, [springValue]);
+  }, [springValue, prefersReducedMotion]);
+
+  const formattedFinalValue = NUMBER_FORMATTER.format(value);
 
   return (
-    <span 
-      ref={ref} 
-      className="font-serif text-3xl tracking-widest flex-grow text-right tabular-nums"
-    >
-      0
-    </span>
+    <>
+      <span className="sr-only">
+        Fictional One Piece bounty: {formattedFinalValue} Berries
+      </span>
+      <span
+        ref={ref}
+        aria-hidden="true"
+        className="font-serif tracking-tight flex-grow text-right tabular-nums"
+      >
+        {formattedFinalValue}
+      </span>
+    </>
   );
 }

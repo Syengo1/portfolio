@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* 1. THIS IS THE MISSING LINE FOR TAILWIND V4 DARK MODE */
+@custom-variant dark (&:is(.dark *));
+
 /* =========================================
    THE GRAND LINE CONFIGURATION (Variables)
    ========================================= */
@@ -193,4 +196,28 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* =========================================
+   A4 CV PRINT STYLES
+   ========================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm;
+  }
+  
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-size: 11pt;
+  }
+  
+  /* Ensure links are readable and don't print as blue/underlined unless intended */
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
 }
