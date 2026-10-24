@@ -104,7 +104,7 @@ const SKILL_GROUPS = [
 ];
 
 export default function CVPage() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [focusMode, setFocusMode] = useState<CvFocusMode>("fullstack");
   const [showAllProjects, setShowAllProjects] = useState(false);
 
@@ -116,84 +116,91 @@ export default function CVPage() {
 
   return (
     <div className="fixed inset-0 z-[60] w-full h-full overflow-y-auto bg-slate-100 dark:bg-slate-950 text-foreground transition-colors duration-300 print:static print:overflow-visible print:bg-white print:text-black">
-      {/* 1. FLOATING CONTROLS TOOLBAR (Hidden in Print) */}
-      <div className="fixed top-4 right-4 z-[70] flex flex-col items-end gap-3 print:hidden">
-        {/* Role Focus Switcher */}
-        <div className="bg-card/95 backdrop-blur-md p-1.5 rounded-xl shadow-xl border border-border flex items-center gap-1">
-          <span className="px-2 text-[10px] font-mono uppercase tracking-wider text-muted-foreground hidden sm:inline-flex items-center gap-1">
-            <SlidersHorizontal size={11} />
-            CV Focus:
-          </span>
-          {(Object.keys(FOCUS_PROFILES) as CvFocusMode[]).map((key) => (
+      
+      {/* WRAPPER: Handles centering the toolbar and the CV paper together */}
+      <div className="relative min-h-screen py-10 px-3 sm:px-6 flex flex-col items-center print:p-0 print:m-0 print:block print:min-h-0">
+        
+        {/* 1. CENTRALLY ALIGNED & FLOATING TOOLBAR (Hidden in Print) */}
+        {/* sticky top-4/6 enables floating. pointer-events-none lets you click CV text through the gaps! */}
+        <div className="sticky top-4 sm:top-6 w-full max-w-[210mm] flex flex-col lg:flex-row items-center justify-between gap-4 mb-6 print:hidden z-[70] pointer-events-none">
+          
+          {/* Role Focus Switcher */}
+          {/* pointer-events-auto restores clicking for the buttons. Perfect Glass styling applied here. */}
+          <div className="pointer-events-auto bg-white/75 dark:bg-slate-900/75 backdrop-blur-lg p-1.5 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 flex flex-wrap items-center justify-center gap-1 w-full lg:w-auto transition-colors duration-300">
+            <span className="px-2 text-[10px] font-mono uppercase tracking-wider text-muted-foreground hidden sm:inline-flex items-center gap-1 whitespace-nowrap">
+              <SlidersHorizontal size={11} />
+              CV Focus:
+            </span>
+            {(Object.keys(FOCUS_PROFILES) as CvFocusMode[]).map((key) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFocusMode(key)}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  focusMode === key
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50"
+                }`}
+              >
+                {FOCUS_PROFILES[key].label}
+              </button>
+            ))}
+          </div>
+
+          {/* Project Count Toggle + Action Buttons */}
+          <div className="pointer-events-auto flex flex-wrap items-center justify-center gap-2 w-full lg:w-auto">
             <button
-              key={key}
               type="button"
-              onClick={() => setFocusMode(key)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                focusMode === key
-                  ? "bg-blue-600 text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
+              onClick={() => setShowAllProjects(!showAllProjects)}
+              className="px-3 h-10 bg-white/75 dark:bg-slate-900/75 backdrop-blur-lg text-foreground text-xs font-mono font-medium rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-blue-500 transition-all flex items-center gap-1.5 cursor-pointer"
+              title="Toggle between Top 5 Selected Projects and All 8 Projects"
             >
-              {FOCUS_PROFILES[key].label}
+              <Layers size={14} className="text-blue-600 dark:text-blue-400" />
+              <span>{showAllProjects ? "Showing: All (8)" : "Showing: Top (5)"}</span>
             </button>
-          ))}
+
+            {/* Theme Toggle Button */}
+            <button
+              type="button"
+              onClick={() => {
+                const isCurrentlyDark = document.documentElement.classList.contains("dark");
+                setTheme(isCurrentlyDark ? "light" : "dark");
+              }}
+              aria-label="Toggle CV Theme"
+              title="Toggle Light / Dark Mode"
+              className="w-10 h-10 bg-white/75 dark:bg-slate-900/75 backdrop-blur-lg text-foreground rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-blue-500 transition-all flex items-center justify-center cursor-pointer shrink-0"
+            >
+              <Sun size={17} className="hidden dark:block text-amber-400" />
+              <Moon size={17} className="block dark:hidden" />
+            </button>
+
+            {/* Print / Save as PDF Button */}
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print or Save CV as PDF"
+              title="Print / Save as PDF"
+              className="px-4 h-10 bg-blue-600/90 backdrop-blur-lg hover:bg-blue-600 text-white text-xs font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer shrink-0 border border-blue-500/50"
+            >
+              <Printer size={16} />
+              {/* Hide "Save as PDF" text on very small screens to prevent wrapping */}
+              <span className="hidden sm:inline">Save as PDF</span>
+              <span className="sm:hidden">PDF</span>
+            </button>
+
+            {/* Return to Portfolio */}
+            <Link
+              href="/"
+              aria-label="Return to Portfolio Website"
+              title="Return to Portfolio"
+              className="w-10 h-10 bg-white/75 dark:bg-slate-900/75 backdrop-blur-lg text-foreground rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-blue-500 transition-all flex items-center justify-center shrink-0"
+            >
+              <Globe size={17} />
+            </Link>
+          </div>
         </div>
 
-        {/* Project Count Toggle + Action Buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setShowAllProjects(!showAllProjects)}
-            className="px-3 h-10 bg-card/95 backdrop-blur-md text-foreground text-xs font-mono font-medium rounded-full shadow-lg border border-border hover:border-blue-500 transition-all flex items-center gap-1.5 cursor-pointer"
-            title="Toggle between Top 5 Selected Projects and All 8 Projects"
-          >
-            <Layers size={14} className="text-blue-600 dark:text-blue-400" />
-            <span>{showAllProjects ? "Showing: All (8)" : "Showing: Top (5)"}</span>
-          </button>
-
-          {/* Theme Toggle Button */}
-          <button
-            type="button"
-            onClick={() => {
-              // Bypasses stale React state by checking the actual DOM class
-              const isCurrentlyDark = document.documentElement.classList.contains("dark");
-              setTheme(isCurrentlyDark ? "light" : "dark");
-            }}
-            aria-label="Toggle CV Theme"
-            title="Toggle Light / Dark Mode"
-            className="w-10 h-10 bg-card/95 backdrop-blur-md text-foreground rounded-full shadow-lg border border-border hover:border-blue-500 transition-all flex items-center justify-center cursor-pointer"
-          >
-            <Sun size={17} className="hidden dark:block text-amber-400" />
-            <Moon size={17} className="block dark:hidden" />
-          </button>
-
-          {/* Print / Save as PDF Button */}
-          <button
-            type="button"
-            onClick={() => window.print()}
-            aria-label="Print or Save CV as PDF"
-            title="Print / Save as PDF"
-            className="px-4 h-10 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
-          >
-            <Printer size={16} />
-            <span>Save as PDF</span>
-          </button>
-
-          {/* Return to Portfolio */}
-          <Link
-            href="/"
-            aria-label="Return to Portfolio Website"
-            title="Return to Portfolio"
-            className="w-10 h-10 bg-card/95 backdrop-blur-md text-foreground rounded-full shadow-lg border border-border hover:border-blue-500 transition-all flex items-center justify-center"
-          >
-            <Globe size={17} />
-          </Link>
-        </div>
-      </div>
-
-      {/* 2. A4 DOCUMENT CONTAINER */}
-      <div className="relative min-h-screen py-16 px-3 sm:px-6 flex justify-center print:p-0 print:m-0 print:block print:min-h-0">
+        {/* 2. A4 DOCUMENT CONTAINER */}
         <article
           className="
             w-full max-w-[210mm] min-h-[297mm]
